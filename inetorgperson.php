@@ -50,7 +50,7 @@ $attributes = array(
 'seeAlso' => "",
 'telephoneNumber' => "",
 'userPassword' => "",
-
+'dn'=>"",
 
 
 
