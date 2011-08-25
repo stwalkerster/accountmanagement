@@ -30,11 +30,14 @@ if(!$r)
 $sr=ldap_search($ds, $basedn, "uid=" . $username);  
 $info = ldap_get_entries($ds, $sr);
 
-    for ($i=0; $i<$info["count"]; $i++) {
-        echo "dn is: " . $info[$i]["dn"] . "<br />";
-        echo "first cn entry is: " . $info[$i]["cn"][0] . "<br />";
-        echo "first email entry is: " . $info[$i]["mail"][0] . "<br /><hr />";
-    }
+require_once("inetorgperson.php");
+
+echo "<table>";
+foreach( $info[0] as $key => $value)
+{
+	echo "<tr><td>$key</td><td>$value</td></tr>";
+}
+echo "</table>";
 
 ldap_close($ds);
 
