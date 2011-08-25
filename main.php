@@ -35,20 +35,18 @@ require_once("inetorgperson.php");
 $entry = $info[0];
 echo "<table>";
 
-echo "<tr><td>".$attributes['dn']."</td><td>".$entry['dn']."</td></tr>";
+echo "<tr><td>".$attributes['dn']."</td><td><ul><li>".$entry['dn']."</li></ul></td></tr>";
 
 for($i = 0; $i < $entry['count'];$i++)
 {
 	$attrname = $entry[$i];
-	echo "<tr><td>".$attributes[$attrname]."</td><td><ul>";
+	echo "<tr><td>".($attributes[$attrname]==""?$attrname:$attributes[$attrname])."</td><td><ul>";
 	
 	for($j = 0; $j < $entry[$attrname]['count']; $j++)
 	{
 		echo "<li>".$entry[$attrname][$j]."</li>";
 	}
-	
 	echo "</ul></td></tr>";
-
 }
 
 echo "</table>";
