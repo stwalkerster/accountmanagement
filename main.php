@@ -32,23 +32,25 @@ $info = ldap_get_entries($ds, $sr);
 
 require_once("inetorgperson.php");
 
+$entry = $info[0];
 echo "<table>";
-foreach( $info[0] as $key => $value)
+
+echo "<tr><td>".$attributes['dn']."</td><td>".$entry['dn']."</td></tr>";
+
+for($i = 0; $i < $entry['count'];$i++)
 {
-	if(is_int($key)) continue;
-	if($key == "count") continue;
+	$attrname = $entry[$i];
+	echo "<tr><td>".$attributes[$attrname]."</td><td><ul>";
 	
-	echo "<tr><td>".$attributes[$key]."</td><td>";
-	if(is_array($value))
+	for($j = 0; $j < $entry[$attrname]['count']; $j++)
 	{
-		echo "<ul>";
-		foreach($value as $val)
-			echo "<li>$val</li>";
-		echo "</ul>";
+		echo "<li>".$entry[$attrname][$j]."</li>";
 	}
-	else echo $value;
-	echo "</td></tr>";
+	
+	echo "</ul></td></tr>";
+
 }
+
 echo "</table>";
 
 ldap_close($ds);
