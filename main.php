@@ -3,7 +3,7 @@ include ("head.html");
 $ds=ldap_connect("directory.helpmebot.org.uk");
 ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
 	
-print_r($_POST);
+//print_r($_POST);
 
 $rdnstart = "uid=";
 $rdnend = ",ou=People,";
@@ -35,7 +35,19 @@ require_once("inetorgperson.php");
 echo "<table>";
 foreach( $info[0] as $key => $value)
 {
-	echo "<tr><td>$key</td><td>$value</td></tr>";
+	if(is_int($key)) continue;
+	if($key == "count") continue;
+	
+	echo "<tr><td>".$attributes[$key]."</td><td>";
+	if(is_array($value))
+	{
+		echo "<ul>";
+		foreach($value as $val)
+			echo "<li>$val</li>";
+		echo "</ul>";
+	}
+	else echo $value;
+	echo "</td></tr>";
 }
 echo "</table>";
 
