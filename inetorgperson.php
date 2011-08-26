@@ -14,7 +14,6 @@ $attributes = array(
 'homephone' => "Home Phone",
 'initials' => "Initials",
 'jpegphoto' => "",
-'labeleduri' => "",
 'mail' => "Email Address",
 'manager' => "Manager",
 'mobile' => "Mobile Number",
@@ -51,6 +50,11 @@ $attributes = array(
 'telephoneNumber' => "",
 'userpassword' => "",
 'dn'=>"Distinguished Name",
+'gidnumber'=>"Group ID",
+'homedirectory'=>"Home Directory",
+'uidnumber'=>"User ID",
+'loginshell'=>"Login Shell",
+'labeleduri'=>"Homepage",
 
 );
 
