@@ -57,4 +57,4 @@ $attributes = array(
 $hiddenAttrs = array(
 'userPassword',
 'objectClass',
-)
+);
