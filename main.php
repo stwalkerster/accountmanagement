@@ -39,6 +39,8 @@ echo "<tr><td>".$attributes['dn']."</td><td><ul><li>".$entry['dn']."</li></ul></
 
 for($i = 0; $i < $entry['count'];$i++)
 {
+	if(in_array($entry[$i],$hiddenAttrs)) continue;
+
 	$attrname = $entry[$i];
 	echo "<tr><td>".($attributes[$attrname]==""?$attrname:$attributes[$attrname])."</td><td><ul>";
 	

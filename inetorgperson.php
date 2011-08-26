@@ -52,6 +52,9 @@ $attributes = array(
 'userPassword' => "",
 'dn'=>"Distinguished Name",
 
-
-
 );
+
+$hiddenAttrs = array(
+'userPassword',
+'objectClass',
+)
