@@ -3,19 +3,32 @@ include ("head.html");
 $ds=ldap_connect("directory.helpmebot.org.uk");
 ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
 	
-//print_r($_POST);
+session_start();
 
-$rdnstart = "uid=";
-$rdnend = ",ou=People,";
-$basedn = "dc=helpmebot,dc=org,dc=uk";
-
-$username = $_POST['uid'];
-
-$dn = $username;
-
-if(!isset($_POST['rdn']))
+if(!isset($_SESSION['dn']))
 {
-	$dn = $rdnstart . $dn . $rdnend . $basedn;
+		
+	//print_r($_POST);
+
+	$rdnstart = "uid=";
+	$rdnend = ",ou=People,";
+	$basedn = "dc=helpmebot,dc=org,dc=uk";
+
+	$username = $_POST['uid'];
+
+	$dn = $username;
+
+	if(!isset($_POST['rdn']))
+	{
+		$dn = $rdnstart . $dn . $rdnend . $basedn;
+	}
+	
+	$pw = $_POST['pw'];
+}
+else
+{
+	$dn = $_SESSION['dn'];
+	$pw = $_SESSION['pw'];
 }
 
 $r=ldap_bind($ds,$dn,$_POST['pw']);
@@ -24,8 +37,12 @@ if(!$r)
 {
 	echo "Failed to authenticate with directory: ".ldap_error($ds);
 	include ("foot.html");
+	session_destroy();
 	die();
 }
+
+$_SESSION['dn'] = $dn;
+$_SESSION['pw'] = $pw;
 
 $sr=ldap_search($ds, $basedn, "uid=" . $username);  
 $info = ldap_get_entries($ds, $sr);
