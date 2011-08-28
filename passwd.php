@@ -6,15 +6,11 @@ echo "<h3>LDAP Password Changer</h3>";
 echo "Connecting to directory service...<br />";
 $ds=ldap_connect("directory.helpmebot.org.uk");  // must be a valid LDAP server!
 
-$username = $_REQUEST['u'];
-$password = $_REQUEST['p'];
+$username = "stwalkerster";
+session_start();
+$password = $_SESSION['pw'];
 
-$rdnstart = "uid=";
-$rdnend = ",ou=People,";
-$basedn = "dc=helpmebot,dc=org,dc=uk";
-
-$dn = $rdnstart . $username . $rdnend . $basedn;
-//$dn = "uid=stwalkerster,ou=People,dc=helpmebot,dc=org,dc=uk";
+$dn = $_SESSION['dn'];
 
 if ($ds) {
     ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);

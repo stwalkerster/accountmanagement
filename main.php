@@ -53,6 +53,7 @@ $entry = $info[0];
 echo "<table>";
 
 echo "<tr><td>".$attributes['dn']."</td><td><ul><li>".$entry['dn']."</li></ul></td></tr>";
+echo "<tr><td>".$attributes['userpassword']."</td><td><ul><li><a href=\"passwd.php\">Change</a></li></ul></td></tr>";
 
 for($i = 0; $i < $entry['count'];$i++)
 {
