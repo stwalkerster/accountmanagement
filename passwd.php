@@ -25,18 +25,32 @@ if ($ds) {
 	die();
     }
 
-    echo "Searching for (uid=".$username.") ...";
-    // Search surname entry
-    $sr=ldap_search($ds, "dc=helpmebot,dc=org,dc=uk", "uid=" . $username);  
+	if(isset($_POST['pass']) && isset($_POST['pass2']))
+	{
+		
+		echo "Searching for (uid=".$username.") ...";
+		// Search surname entry
+		$sr=ldap_read($ds, $dn, "objectClass=*" );  
 
-    $info = ldap_get_entries($ds, $sr);
+		$info = ldap_get_entries($ds, $sr);
 
-    for ($i=0; $i<$info["count"]; $i++) {
-        echo "dn is: " . $info[$i]["dn"] . "<br />";
-        echo "first cn entry is: " . $info[$i]["cn"][0] . "<br />";
-        echo "first email entry is: " . $info[$i]["mail"][0] . "<br /><hr />";
-    }
-
+		for ($i=0; $i<$info["count"]; $i++) {
+			echo "dn is: " . $info[$i]["dn"] . "<br />";
+			echo "first cn entry is: " . $info[$i]["cn"][0] . "<br />";
+			echo "first email entry is: " . $info[$i]["mail"][0] . "<br /><hr />";
+		}
+	}
+	else
+	{
+	?>
+	<form action="passwd.php" method="post">
+		<input type="password" name="pass" />
+		<input type="password" name="pass2" />
+		<input type="submit" value="Change Password" />
+	</form>
+	<?php
+	}
+	
     echo "Closing connection";
     ldap_close($ds);
 
